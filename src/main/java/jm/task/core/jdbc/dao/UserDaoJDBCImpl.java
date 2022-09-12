@@ -49,20 +49,16 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() throws SQLException {
-        List<User> list = null;
-        try {
-            list = new ArrayList<>();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from Users");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                User user = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4));
-                user.setId(resultSet.getLong(1));
-                list.add(user);
-            }
-            connection.commit();
-        } catch (SQLException e) {
-            connection.rollback();
+        List<User> list = new ArrayList<>();
+        connection.setAutoCommit(true);
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from Users");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            User user = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4));
+            user.setId(resultSet.getLong(1));
+            list.add(user);
         }
+        connection.setAutoCommit(false);
         return list;
     }
 
