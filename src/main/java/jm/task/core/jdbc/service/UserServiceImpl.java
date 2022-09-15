@@ -10,35 +10,29 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoJDBCImpl();
+    private UserDao userDaoHibernate = new UserDaoHibernateImpl();
     public void createUsersTable() throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         userDaoHibernate.createUsersTable();
     }
 
     public void dropUsersTable() throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         userDaoHibernate.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         userDaoHibernate.saveUser(name, lastName, age);
         System.out.println("User с именем – '" + name +"' добавлен в базу данных");
     }
 
     public void removeUserById(long id) throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         userDaoHibernate.removeUserById(id);
     }
 
     public List<User> getAllUsers() throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         return userDaoHibernate.getAllUsers();
     }
 
     public void cleanUsersTable() throws SQLException {
-        UserDao userDaoHibernate = new UserDaoHibernateImpl();
         userDaoHibernate.cleanUsersTable();
     }
 }
